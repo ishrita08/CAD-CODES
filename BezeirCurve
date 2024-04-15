@@ -1,0 +1,31 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+def bezier_curve(p0, p1, p2, p3, t):
+    x = (1-t)**3*p0[0] + 3*(1-t)**2*t*p1[0] + 3*(1-t)*t**2*p2[0] + t**3*p3[0]
+    y = (1-t)**3*p0[1] + 3*(1-t)**2*t*p1[1] + 3*(1-t)*t**2*p2[1] + t**3*p3[1]
+    return x, y
+
+# Control points
+p0 = (1, 1)
+p1 = (2, 4)
+p2 = (6, 2)
+p3 = (5, 5)
+
+# Number of points to plot along the curve
+num_points = 100
+
+# Generate points on the curve
+curve_points = [bezier_curve(p0, p1, p2, p3, t) for t in np.linspace(0, 1, num_points)]
+
+# Plotting
+plt.figure(figsize=(8, 6))
+plt.plot(*zip(*curve_points), label='Bezier Curve')
+plt.scatter(*zip(*[p0, p1, p2, p3]), color='red', label='Control Points')
+plt.title('Bezier Curve for Four Control Points')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.show()
